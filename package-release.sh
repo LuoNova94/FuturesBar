@@ -37,7 +37,7 @@ hdiutil verify "$release_dir/$dmg_name"
 
 source_name="FuturesBar-$version-source"
 mkdir -p "$stage/$source_name"
-for directory in Sources Tests; do
+for directory in Sources Tests docs; do
     ditto --norsrc --noextattr --noqtn "$directory" "$stage/$source_name/$directory"
 done
 for item in Package.swift Info.plist README.md LICENSE INSTALL.txt RELEASE.md .gitignore \
