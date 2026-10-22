@@ -20,7 +20,13 @@
 
 这是未签名预览版，已完成构建、核心检查和真实行情检查，尚未完成 Windows 实机界面验收。[Windows 使用与构建说明](windows/README.md) · [Windows 版本说明与下载文件](https://github.com/luoheng1994/FuturesBar/releases/tag/v0.2.0-windows-preview)
 
-## 界面预览（Mac）
+## 界面预览
+
+### Windows 悬浮行情条（实机截图）
+
+![Windows 悬浮行情条实机效果：BTC、ETH、HMSTR 行情与设置按钮](docs/screenshots/windows-floating-bar.png)
+
+### Mac 菜单栏与面板
 
 **菜单栏实时行情**
 

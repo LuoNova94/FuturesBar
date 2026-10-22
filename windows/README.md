@@ -10,6 +10,12 @@ C# / .NET 10 / WPF，使用 Windows Forms 的 NotifyIcon 提供托盘菜单。�
 
 此版本未签名，尚未完成 Windows 实机界面验收。
 
+## 实机效果
+
+![Windows 悬浮行情条实机效果](../docs/screenshots/windows-floating-bar.png)
+
+截图由项目作者提供，展示三个品种的最新成交价和涨跌幅。价格仅为截图时的示例。
+
 ## 功能
 
 - 单行悬浮条，最多三个 Binance USDT 永续合约；价格每秒汇总刷新。
