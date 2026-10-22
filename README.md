@@ -2,9 +2,31 @@
 
 Mac 原生菜单栏工具，显示 Binance USDT 永续合约行情。macOS 13 或更新版本，无第三方运行依赖。
 
+## 下载
+
+**[⬇ 下载 Mac 安装包（DMG · v0.1.2）](https://github.com/luoheng1994/FuturesBar/releases/download/v0.1.2/FuturesBar-0.1.2-arm64-unnotarized.dmg)**
+
+适用于 **Apple 芯片 Mac（M1 及更新芯片）和 macOS 13+**。打开 DMG，将「合约行情.app」拖入「应用程序」后启动。
+
+此版本尚未经过 Apple 公证，首次打开说明见 [安装指南](INSTALL.txt)。需要网络能够访问 Binance 行情服务，可在面板中配置本机代理。
+
+[查看版本说明与全部下载文件](https://github.com/luoheng1994/FuturesBar/releases/tag/v0.1.2) · [所有版本](https://github.com/luoheng1994/FuturesBar/releases)
+
+## 界面预览
+
+**菜单栏实时行情**
+
+![Mac 菜单栏实时行情](docs/screenshots/mac-menubar.png)
+
+**合约行情面板**
+
+<img src="docs/screenshots/mac-panel.png" alt="Mac 合约行情面板：最多三个品种、最新成交价与标记价格切换" width="373">
+
+截图中的价格和代理端口仅为示例，新安装默认跟随系统网络设置。
+
 ## 使用
 
-双击 `output/合约行情.app`，右上角菜单栏出现 BTC、ETH、SOL 的价格。点击价格打开面板。
+打开「应用程序」中的「合约行情.app」，右上角菜单栏出现 BTC、ETH、SOL 的价格。点击价格打开面板。
 
 - 「管理品种」：搜索 Binance 当前处于交易状态的 USDT 永续合约；最多选择 3 个，至少保留 1 个。
 - 在已选品种卡片上使用上下箭头调整菜单栏顺序，减号移除品种。
