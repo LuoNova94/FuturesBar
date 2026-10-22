@@ -1,3 +1,7 @@
 .build/
 output/
 .swiftpm/
+**/bin/
+**/obj/
+.vs/
+*.user

@@ -40,6 +40,9 @@ mkdir -p "$stage/$source_name"
 for directory in Sources Tests docs; do
     ditto --norsrc --noextattr --noqtn "$directory" "$stage/$source_name/$directory"
 done
+if [[ -d windows ]]; then
+    tar --exclude='*/bin' --exclude='*/obj' -cf - windows | tar -xf - -C "$stage/$source_name"
+fi
 for item in Package.swift Info.plist README.md LICENSE INSTALL.txt RELEASE.md .gitignore \
     build.sh check.sh check-layout.sh package-release.sh; do
     cp "$item" "$stage/$source_name/"

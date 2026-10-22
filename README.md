@@ -1,6 +1,6 @@
 # 合约行情 · FuturesBar
 
-Mac 原生菜单栏工具，显示 Binance USDT 永续合约行情。macOS 13 或更新版本，无第三方运行依赖。
+轻量的 Binance USDT 永续合约行情工具，最多显示三个品种。Mac 版使用原生菜单栏，Windows 预览版使用桌面悬浮行情条。
 
 ## 下载
 
@@ -12,7 +12,15 @@ Mac 原生菜单栏工具，显示 Binance USDT 永续合约行情。macOS 13 �
 
 [查看版本说明与全部下载文件](https://github.com/luoheng1994/FuturesBar/releases/tag/v0.1.2) · [所有版本](https://github.com/luoheng1994/FuturesBar/releases)
 
-## 界面预览
+### Windows 预览版
+
+**[⬇ 下载 Windows 悬浮行情条（ZIP · v0.2.0）](https://github.com/luoheng1994/FuturesBar/releases/download/v0.2.0-windows-preview/FuturesBar-0.2.0-win-x64-preview.zip)**
+
+适用于 **Windows 11 x64**。将 ZIP 完整解压到固定文件夹，双击 `FuturesBar.exe`，无需另装 .NET。
+
+这是未签名预览版，已完成构建、核心检查和真实行情检查，尚未完成 Windows 实机界面验收。[Windows 使用与构建说明](windows/README.md) · [Windows 版本说明与下载文件](https://github.com/luoheng1994/FuturesBar/releases/tag/v0.2.0-windows-preview)
+
+## 界面预览（Mac）
 
 **菜单栏实时行情**
 
@@ -24,7 +32,7 @@ Mac 原生菜单栏工具，显示 Binance USDT 永续合约行情。macOS 13 �
 
 截图中的价格和代理端口仅为示例，新安装默认跟随系统网络设置。
 
-## 使用
+## Mac 使用
 
 打开「应用程序」中的「合约行情.app」，右上角菜单栏出现 BTC、ETH、SOL 的价格。点击价格打开面板。
 
@@ -40,7 +48,7 @@ Mac 原生菜单栏工具，显示 Binance USDT 永续合约行情。macOS 13 �
 
 不需要 Binance 账号或 API Key，应用只访问公共行情接口。需要本机网络能访问 Binance 行情服务。第一版只支持 USDT 永续，不包含币本位、USDC 或交割合约。
 
-## 构建与验证
+## Mac 构建与验证
 
 需要安装 Xcode 或 Swift 命令行开发工具。
 
