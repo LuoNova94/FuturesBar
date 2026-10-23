@@ -1,10 +1,10 @@
-# 合约行情 0.1.2 · Apple 芯片试用版
+# 合约行情 0.1.3 · Apple 芯片试用版
 
 轻量的 macOS 菜单栏工具，查看 Binance USDT 永续合约行情。
 
 ## 下载与安装
 
-下载 `FuturesBar-0.1.2-arm64-unnotarized.dmg`，打开后将「合约行情.app」拖入「Applications / 应用程序」。
+下载 `FuturesBar-0.1.3-arm64-unnotarized.dmg`，打开后将「合约行情.app」拖入「Applications / 应用程序」。
 
 - 系统要求：Apple 芯片 Mac（M1 及更新芯片），macOS 13 或更新版本。
 - 此版本暂不支持 Intel Mac。
@@ -21,9 +21,10 @@
 
 ## 本版改进
 
-- 修复弹窗首次打开、展开或收起后顶部越界和位置跳动。
-- 新安装默认跟随系统网络，不预设本机代理端口。
-- 升级时保留已有网络配置。
+- 支持 Binance 的 TradFi USDT 永续合约，包括 KORU、SPCX（SpaceX）、TSLA、NVDA 等当前处于交易状态的品种。
+- 搜索 SpaceX 或 SPCX 都能找到 SPCXUSDT；搜索 KORU 或韩国可找到 KORUUSDT。
+- 可与 BTC 等普通永续混合选择，仍最多显示三个品种。
+- 接入的是 Binance 合约行情，价格单位为 USDT；不包含 USD1、USDC 或交割合约。
 
 ## 源码与校验
 

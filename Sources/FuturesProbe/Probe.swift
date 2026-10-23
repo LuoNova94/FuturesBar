@@ -9,10 +9,11 @@ struct FuturesProbe {
             let session = BinanceAPI.makeSession(proxyPort: port)
             defer { session.invalidateAndCancel() }
             let contracts = try await BinanceAPI.contracts(session: session)
-            guard contracts.contains(where: { $0.symbol == "BTCUSDT" }) else { throw MarketError.invalidQuote }
+            let symbols = ProcessInfo.processInfo.environment["FUTURES_TEST_SYMBOLS"]?.split(separator: ",").map { String($0).uppercased() } ?? ["BTCUSDT", "ETHUSDT", "SOLUSDT"]
+            guard !symbols.isEmpty, symbols.count <= 3, symbols.allSatisfy({ symbol in contracts.contains { $0.symbol == symbol } }) else { throw MarketError.invalidQuote }
             print("REST OK: \(contracts.count) 个可交易的 USDT 永续合约")
             for kind in PriceKind.allCases {
-                let quotes = try await probe(kind, session: session)
+                let quotes = try await probe(kind, symbols: symbols, session: session)
                 print("WebSocket \(kind.title) OK: " + quotes.sorted { $0.symbol < $1.symbol }.map {
                     "\($0.symbol)=\(PriceText.format($0.price, compact: false))"
                 }.joined(separator: ", "))
@@ -23,8 +24,7 @@ struct FuturesProbe {
         }
     }
 
-    static func probe(_ kind: PriceKind, session: URLSession) async throws -> [Quote] {
-        let symbols = ["BTCUSDT", "ETHUSDT", "SOLUSDT"]
+    static func probe(_ kind: PriceKind, symbols: [String], session: URLSession) async throws -> [Quote] {
         let socket = session.webSocketTask(with: BinanceAPI.streamURL(symbols: symbols, kind: kind))
         socket.resume()
         defer { socket.cancel(with: .goingAway, reason: nil) }

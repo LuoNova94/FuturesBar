@@ -14,8 +14,8 @@ struct Dashboard: View {
 
     private var results: [Contract] {
         let term = query.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
-        let matching = store.contracts.filter { term.isEmpty || $0.symbol.contains(term) || $0.baseAsset.contains(term) }
-        let favorites = ["BTCUSDT", "ETHUSDT", "SOLUSDT", "BNBUSDT", "DOGEUSDT", "XRPUSDT"]
+        let matching = store.contracts.filter { $0.matchesSearch(term) }
+        let favorites = ["BTCUSDT", "ETHUSDT", "SOLUSDT", "BNBUSDT", "DOGEUSDT", "XRPUSDT", "KORUUSDT", "SPCXUSDT", "TSLAUSDT", "NVDAUSDT"]
         return matching.sorted {
             let l = favorites.firstIndex(of: $0.symbol) ?? 999
             let r = favorites.firstIndex(of: $1.symbol) ?? 999
@@ -145,7 +145,7 @@ struct Dashboard: View {
         let fresh = quote?.isFresh(at: store.now) == true
         return VStack(alignment: .leading, spacing: 8) {
             HStack(alignment: .firstTextBaseline) {
-                Text(contract.baseAsset).font(.system(size: 13, weight: .semibold))
+                Text(contract.displayName).font(.system(size: 13, weight: .semibold))
                 Text("/ USDT").font(.system(size: 10)).foregroundStyle(.secondary)
                 Spacer()
                 if managing {
@@ -188,7 +188,7 @@ struct Dashboard: View {
         VStack(alignment: .leading, spacing: 9) {
             HStack(spacing: 7) {
                 Image(systemName: "magnifyingglass").foregroundStyle(.secondary)
-                TextField("搜索合约，如 BTC、DOGE", text: $query).textFieldStyle(.plain)
+                TextField("搜索 BTC、KORU、SpaceX", text: $query).textFieldStyle(.plain)
                     .accessibilityLabel("搜索合约品种")
                 if !query.isEmpty { Button { query = "" } label: { Image(systemName: "xmark.circle.fill") }.buttonStyle(.plain) }
             }.padding(9).background(.white.opacity(0.055), in: RoundedRectangle(cornerRadius: 8))
@@ -208,8 +208,8 @@ struct Dashboard: View {
                             let selected = store.watchlist.symbols.contains(contract.symbol)
                             Button { store.toggle(contract.symbol) } label: {
                                 HStack {
-                                    Text(contract.baseAsset).font(.system(size: 12, weight: .medium))
-                                    Text("USDT 永续").font(.system(size: 10)).foregroundStyle(.secondary)
+                                    Text(contract.displayName).font(.system(size: 12, weight: .medium))
+                                    Text(contract.marketLabel).font(.system(size: 10)).foregroundStyle(.secondary)
                                     Spacer()
                                     Image(systemName: selected ? "checkmark.circle.fill" : "plus.circle")
                                         .foregroundStyle(selected ? accent : .secondary)

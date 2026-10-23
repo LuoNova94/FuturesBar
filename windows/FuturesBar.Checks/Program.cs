@@ -41,6 +41,20 @@ var tests = new (string Name, Action Run)[]
         Check(new Contract("BTCUSDT", "BTC", "USDT", "CURRENT_QUARTER", "TRADING").Supported == false);
         Check(new Contract("OLDUSDT", "OLD", "USDT", "PERPETUAL", "SETTLING").Supported == false);
     }),
+    ("TradFi contracts, aliases and mixed watchlist", () =>
+    {
+        var spacex = new Contract("SPCXUSDT", "SPCX", "USDT", "TRADIFI_PERPETUAL", "TRADING");
+        var koru = new Contract("KORUUSDT", "KORU", "USDT", "TRADIFI_PERPETUAL", "TRADING");
+        Check(spacex.Supported && koru.Supported);
+        Check(spacex.MatchesSearch(" spaceX ") && spacex.MatchesSearch("spcx"));
+        Check(!spacex.MatchesSearch("KORU") && koru.MatchesSearch("韩国"));
+        Check(!(spacex with { QuoteAsset = "USD1" }).Supported);
+        Check(!(koru with { Status = "SETTLING" }).Supported);
+        Check(!(koru with { ContractType = "UNKNOWN" }).Supported);
+        var list = new Watchlist(["BTCUSDT", "KORUUSDT", "SPCXUSDT"]);
+        Check(!list.Toggle("TSLAUSDT") && list.Symbols.Count == 3);
+        Check(BinanceApi.StreamUrl(new AppSettings { Symbols = list.Symbols.ToList() }).OriginalString.Contains("spcxusdt@ticker"));
+    }),
     ("proxy defaults, validation and system mode", () =>
     {
         var settings = new AppSettings();
@@ -100,7 +114,10 @@ if (args.Contains("--live"))
     var settings = new AppSettings { ManualProxy = proxyPort.HasValue, ProxyPort = proxyPort };
     using var timeout = new CancellationTokenSource(TimeSpan.FromSeconds(25));
     var contracts = await BinanceApi.ContractsAsync(settings, timeout.Token);
-    Check(contracts.Any(c => c.Symbol == "BTCUSDT") && contracts.All(c => c.Supported));
+    var symbols = Environment.GetEnvironmentVariable("FUTURES_TEST_SYMBOLS")?.Split(',').Select(s => s.ToUpperInvariant()).ToList()
+        ?? new List<string> { "BTCUSDT", "ETHUSDT", "SOLUSDT" };
+    Check(symbols.Count is >= 1 and <= 3 && symbols.All(s => contracts.Any(c => c.Symbol == s)) && contracts.All(c => c.Supported));
+    settings = settings with { Symbols = symbols };
     Console.WriteLine($"REST OK: {contracts.Count} USDT perpetual contracts");
     foreach (var kind in Enum.GetValues<PriceKind>())
     {
@@ -111,7 +128,7 @@ if (args.Contains("--live"))
         {
             if (!quote.IsFresh(DateTimeOffset.UtcNow)) return;
             received[quote.Symbol] = quote;
-            if (received.Count == 3) ready.TrySetResult(new(received));
+            if (received.Count == symbols.Count) ready.TrySetResult(new(received));
         };
         _ = feed.StartAsync();
         var quotes = await ready.Task.WaitAsync(TimeSpan.FromSeconds(25));

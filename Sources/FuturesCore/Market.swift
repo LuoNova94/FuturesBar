@@ -15,7 +15,16 @@ public struct Contract: Codable, Identifiable, Equatable {
     public let status: String
     public var id: String { symbol }
     public var isSupported: Bool {
-        quoteAsset == "USDT" && contractType == "PERPETUAL" && status == "TRADING"
+        quoteAsset == "USDT" && ["PERPETUAL", "TRADIFI_PERPETUAL"].contains(contractType) && status == "TRADING"
+    }
+
+    public var displayName: String { baseAsset == "SPCX" ? "SPCX (SpaceX)" : baseAsset }
+    public var marketLabel: String { contractType == "TRADIFI_PERPETUAL" ? "TradFi · USDT 永续" : "USDT 永续" }
+
+    public func matchesSearch(_ query: String) -> Bool {
+        let term = query.trimmingCharacters(in: .whitespacesAndNewlines)
+        let aliases = baseAsset == "KORU" ? "韩国 ETF" : ""
+        return term.isEmpty || "\(symbol) \(displayName) \(aliases)".localizedCaseInsensitiveContains(term)
     }
 
     public init(symbol: String, baseAsset: String, quoteAsset: String = "USDT",

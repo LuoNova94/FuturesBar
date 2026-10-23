@@ -4,21 +4,21 @@
 
 ## 下载
 
-**[⬇ 下载 Mac 安装包（DMG · v0.1.2）](https://github.com/luoheng1994/FuturesBar/releases/download/v0.1.2/FuturesBar-0.1.2-arm64-unnotarized.dmg)**
+**[⬇ 下载 Mac 安装包（DMG · v0.1.3）](https://github.com/LuoNova94/FuturesBar/releases/download/v0.2.1/FuturesBar-0.1.3-arm64-unnotarized.dmg)**
 
 适用于 **Apple 芯片 Mac（M1 及更新芯片）和 macOS 13+**。打开 DMG，将「合约行情.app」拖入「应用程序」后启动。
 
 此版本尚未经过 Apple 公证，首次打开说明见 [安装指南](INSTALL.txt)。需要网络能够访问 Binance 行情服务，可在面板中配置本机代理。
 
-[查看版本说明与全部下载文件](https://github.com/luoheng1994/FuturesBar/releases/tag/v0.1.2) · [所有版本](https://github.com/luoheng1994/FuturesBar/releases)
+[查看版本说明与全部下载文件](https://github.com/LuoNova94/FuturesBar/releases/tag/v0.2.1) · [所有版本](https://github.com/LuoNova94/FuturesBar/releases)
 
 ### Windows 预览版
 
-**[⬇ 下载 Windows 悬浮行情条（ZIP · v0.2.0）](https://github.com/luoheng1994/FuturesBar/releases/download/v0.2.0-windows-preview/FuturesBar-0.2.0-win-x64-preview.zip)**
+**[⬇ 下载 Windows 悬浮行情条（ZIP · v0.2.1）](https://github.com/LuoNova94/FuturesBar/releases/download/v0.2.1/FuturesBar-0.2.1-win-x64-preview.zip)**
 
 适用于 **Windows 11 x64**。将 ZIP 完整解压到固定文件夹，双击 `FuturesBar.exe`，无需另装 .NET。
 
-这是未签名预览版，已完成构建、核心检查和真实行情检查，尚未完成 Windows 实机界面验收。[Windows 使用与构建说明](windows/README.md) · [Windows 版本说明与下载文件](https://github.com/luoheng1994/FuturesBar/releases/tag/v0.2.0-windows-preview)
+这是未签名预览版，已完成构建、核心检查和真实行情检查，尚未完成 Windows 实机界面验收。[Windows 使用与构建说明](windows/README.md) · [Windows 版本说明与下载文件](https://github.com/LuoNova94/FuturesBar/releases/tag/v0.2.1)
 
 ## 界面预览
 
@@ -38,6 +38,10 @@
 
 截图中的价格和代理端口仅为示例，新安装默认跟随系统网络设置。
 
+## 股票与 ETF 合约
+
+支持 Binance 交易中的 TradFi USDT 永续合约。搜索 `KORU`、`SpaceX`（实际合约代码 `SPCXUSDT`）、`TSLA`、`NVDA` 等即可添加；可与 BTC 等品种混合选择，合计最多三个。价格来自 Binance 合约行情，单位为 USDT。
+
 ## Mac 使用
 
 打开「应用程序」中的「合约行情.app」，右上角菜单栏出现 BTC、ETH、SOL 的价格。点击价格打开面板。
@@ -52,7 +56,7 @@
 - 新安装默认跟随 macOS 系统网络设置，不预填或启用特定代理端口。点击面板下方的「网络 · 跟随系统」，打开「手动配置本机代理」后可填写 HTTP / 混合代理端口，地址为 `127.0.0.1`；保存后立即重连。关闭手动代理后恢复跟随系统，无需填写端口。这些设置只影响此工具，不改变系统设置。
 - 升级会保留已有的网络配置；0.1.1 及以前已使用的隐式本机代理会迁移为明确保存的配置。
 
-不需要 Binance 账号或 API Key，应用只访问公共行情接口。需要本机网络能访问 Binance 行情服务。第一版只支持 USDT 永续，不包含币本位、USDC 或交割合约。
+不需要 Binance 账号或 API Key，应用只访问公共行情接口。需要本机网络能访问 Binance 行情服务。支持 Binance 普通永续与 TradFi 永续（股票、ETF 等），仅接收交易中的 USDT 合约，不包含币本位、USD1、USDC 或交割合约。
 
 ## Mac 构建与验证
 

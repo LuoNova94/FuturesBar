@@ -1,4 +1,4 @@
-合约行情 Windows 悬浮条 · FuturesBar 0.2.0 预览版
+合约行情 Windows 悬浮条 · FuturesBar 0.2.1 预览版
 
 适用：Windows 11 x64。本程序为未签名预览版，尚未完成 Windows 实机界面验收。
 

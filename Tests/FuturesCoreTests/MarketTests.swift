@@ -51,6 +51,19 @@ final class MarketTests: XCTestCase {
         XCTAssertEqual(try BinanceAPI.decodeContracts(data).map(\.symbol), ["BTCUSDT"])
     }
 
+    func testTradFiCatalogSearchAndMixedWatchlist() throws {
+        let data = Data(#"{"symbols":[{"symbol":"KORUUSDT","baseAsset":"KORU","quoteAsset":"USDT","contractType":"TRADIFI_PERPETUAL","status":"TRADING"},{"symbol":"SPCXUSDT","baseAsset":"SPCX","quoteAsset":"USDT","contractType":"TRADIFI_PERPETUAL","status":"TRADING"},{"symbol":"SPCXUSD1","baseAsset":"SPCX","quoteAsset":"USD1","contractType":"TRADIFI_PERPETUAL","status":"TRADING"},{"symbol":"OLDUSDT","baseAsset":"OLD","quoteAsset":"USDT","contractType":"TRADIFI_PERPETUAL","status":"SETTLING"}]}"#.utf8)
+        let contracts = try BinanceAPI.decodeContracts(data)
+        XCTAssertEqual(contracts.map(\.symbol), ["KORUUSDT", "SPCXUSDT"])
+        XCTAssertTrue(contracts[1].matchesSearch(" spaceX "))
+        XCTAssertTrue(contracts[1].matchesSearch("spcx"))
+        XCTAssertFalse(contracts[1].matchesSearch("KORU"))
+        XCTAssertTrue(contracts[0].matchesSearch("韩国"))
+        var list = Watchlist(["BTCUSDT", "KORUUSDT", "SPCXUSDT"])
+        XCTAssertFalse(list.toggle("TSLAUSDT"))
+        XCTAssertTrue(BinanceAPI.streamURL(symbols: list.symbols, kind: .last).absoluteString.contains("spcxusdt@ticker"))
+    }
+
     func testRoutedCombinedStreamAndMarkInterval() {
         XCTAssertEqual(BinanceAPI.streamURL(symbols: ["BTCUSDT", "ETHUSDT"], kind: .last).absoluteString,
                        "wss://fstream.binance.com/market/stream?streams=btcusdt@ticker/ethusdt@ticker")

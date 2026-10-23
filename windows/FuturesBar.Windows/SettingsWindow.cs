@@ -58,7 +58,7 @@ internal sealed class SettingsWindow : Window
         body.Children.Add(selectedPanel);
         body.Children.Add(count);
         search.Margin = new Thickness(0, 10, 0, 8);
-        search.ToolTip = "搜索合约，如 BTC、DOGE";
+        search.ToolTip = "搜索 BTC、KORU、SpaceX";
         System.Windows.Automation.AutomationProperties.SetName(search, "搜索合约品种");
         search.TextChanged += (_, _) => RebuildResults();
         body.Children.Add(search);
@@ -157,14 +157,14 @@ internal sealed class SettingsWindow : Window
                 resultsPanel.Children.Add(text); return;
             }
             var term = search.Text.Trim();
-            string[] favorites = ["BTCUSDT", "ETHUSDT", "SOLUSDT", "BNBUSDT", "DOGEUSDT", "XRPUSDT"];
-            var matches = app.Contracts.Where(c => c.Symbol.Contains(term, StringComparison.OrdinalIgnoreCase))
+            string[] favorites = ["BTCUSDT", "ETHUSDT", "SOLUSDT", "BNBUSDT", "DOGEUSDT", "XRPUSDT", "KORUUSDT", "SPCXUSDT", "TSLAUSDT", "NVDAUSDT"];
+            var matches = app.Contracts.Where(c => c.MatchesSearch(term))
                 .OrderBy(c => Array.IndexOf(favorites, c.Symbol) is var i && i >= 0 ? i : 999)
                 .ThenBy(c => c.Symbol, StringComparer.Ordinal).Take(100).ToList();
             foreach (var contract in matches)
             {
                 var selected = watchlist.Symbols.Contains(contract.Symbol);
-                var checkbox = Ui.Check(contract.BaseAsset + "  / USDT 永续", selected);
+                var checkbox = Ui.Check(contract.DisplayName + "  / " + contract.MarketLabel, selected);
                 checkbox.IsEnabled = selected ? watchlist.Symbols.Count > 1 : watchlist.Symbols.Count < 3;
                 checkbox.Click += (_, _) =>
                 {

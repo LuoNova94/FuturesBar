@@ -8,7 +8,7 @@
     <ImplicitUsings>disable</ImplicitUsings>
     <StartupObject>FuturesBar.Windows.Program</StartupObject>
     <AssemblyName>FuturesBar</AssemblyName>
-    <Version>0.2.0</Version>
+    <Version>0.2.1</Version>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
     <!-- WPF owns the application and its DPI manifest. WinForms is only used

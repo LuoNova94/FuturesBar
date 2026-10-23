@@ -14,7 +14,15 @@ public sealed record Contract(
     [property: JsonPropertyName("contractType")] string ContractType,
     [property: JsonPropertyName("status")] string Status)
 {
-    public bool Supported => QuoteAsset == "USDT" && ContractType == "PERPETUAL" && Status == "TRADING";
+    public bool Supported => QuoteAsset == "USDT" && (ContractType is "PERPETUAL" or "TRADIFI_PERPETUAL") && Status == "TRADING";
+    public string DisplayName => BaseAsset == "SPCX" ? "SPCX (SpaceX)" : BaseAsset;
+    public string MarketLabel => ContractType == "TRADIFI_PERPETUAL" ? "TradFi · USDT 永续" : "USDT 永续";
+    public bool MatchesSearch(string query)
+    {
+        var term = query.Trim();
+        var aliases = BaseAsset == "KORU" ? "韩国 ETF" : "";
+        return term.Length == 0 || $"{Symbol} {DisplayName} {aliases}".Contains(term, StringComparison.OrdinalIgnoreCase);
+    }
     public static string AssetName(string symbol) => symbol.EndsWith("USDT", StringComparison.Ordinal)
         ? symbol[..^4] : symbol;
 }

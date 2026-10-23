@@ -13,7 +13,7 @@ New-Item -ItemType Directory -Force $destination | Out-Null
 Copy-Item (Join-Path $publishDir "FuturesBar.exe") $destination
 Copy-Item "../LICENSE" $destination
 Copy-Item "INSTALL.txt" $destination
-$archive = Join-Path $PSScriptRoot "../output/FuturesBar-0.2.0-$Runtime-preview.zip"
+$archive = Join-Path $PSScriptRoot "../output/FuturesBar-0.2.1-$Runtime-preview.zip"
 Compress-Archive -Path (Join-Path $destination "FuturesBar.exe"),(Join-Path $destination "LICENSE"),(Join-Path $destination "INSTALL.txt") -DestinationPath $archive -Force
 Get-FileHash $archive -Algorithm SHA256 | Format-List
 Write-Host "Preview package: $archive"
