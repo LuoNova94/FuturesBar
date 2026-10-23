@@ -14,7 +14,7 @@
 2. 启动应用，点击右上角菜单栏价格打开行情面板。
 3. 升级前先退出旧版，再替换应用；已有品种和网络设置会保留。
 
-此安装包使用临时签名，尚未经过 Apple 公证。首次打开说明见 [安装指南](../INSTALL.txt)。[版本说明、源码与校验文件](https://github.com/LuoNova94/FuturesBar/releases/tag/v0.2.1)。
+此安装包使用临时签名，尚未经过 Apple 公证。首次打开说明见 [安装指南](../macos/INSTALL.txt)。[版本说明、源码与校验文件](https://github.com/LuoNova94/FuturesBar/releases/tag/v0.2.1)。
 
 ## 界面预览
 
@@ -50,13 +50,13 @@
 
 ## 构建与验证
 
-使用 Swift / AppKit / SwiftUI，需要安装 Xcode 或 Swift 命令行开发工具。以下命令均在仓库根目录执行。
+Mac 源码与测试位于 `macos/`，与 `windows/` 并列。使用 Swift / AppKit / SwiftUI，需要安装 Xcode 或 Swift 命令行开发工具。以下命令均在仓库根目录执行。
 
 ```sh
-zsh build.sh
-zsh check.sh
-zsh check-layout.sh
-FUTURES_PROXY_PORT=7892 zsh check.sh --live
+zsh macos/build.sh
+zsh macos/check.sh
+zsh macos/check-layout.sh
+FUTURES_PROXY_PORT=7892 zsh macos/check.sh --live
 ```
 
 最后一项会真实请求品种列表，并分别接收 BTC、ETH、SOL 的最新成交价及标记价格，失败返回非零状态。
@@ -67,15 +67,15 @@ FUTURES_PROXY_PORT=7892 zsh check.sh --live
 
 ## 打包与发布
 
-目前提供 Apple 芯片的未公证试用版，需要 macOS 13 或更新版本。安装和首次打开说明见 [INSTALL.txt](../INSTALL.txt)。
+目前提供 Apple 芯片的未公证试用版，需要 macOS 13 或更新版本。安装和首次打开说明见 [INSTALL.txt](../macos/INSTALL.txt)。
 
 ```sh
-zsh package-release.sh
+zsh macos/package-release.sh
 ```
 
 脚本会重新构建应用，生成 DMG、独立源码 ZIP、SHA-256 校验文件和发布说明，存放于 `output/releases/v<版本号>/`。DMG 包含应用、「应用程序」快捷入口、安装说明和许可证。源码 ZIP 不包含构建缓存、应用二进制、Git 历史或本机偏好设置。
 
-在 GitHub 创建公开仓库时，仅上传此工具的源码文件，排除 `.build/`、`output/` 和 `.swiftpm/`。创建对应版本标签的 Release，以 `RELEASE.md` 为说明，上传 DMG、源码 ZIP 和 `SHA256SUMS.txt`；安装包无需提交到 Git 历史中。
+在 GitHub 创建公开仓库时，仅上传此工具的源码文件，排除 `.build/`、`output/` 和 `.swiftpm/`。创建对应版本标签的 Release，以 `macos/RELEASE.md` 为说明，上传 DMG、源码 ZIP 和 `SHA256SUMS.txt`；安装包无需提交到 Git 历史中。
 
 ## 许可证
 

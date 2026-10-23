@@ -43,7 +43,7 @@
 
 ## 构建
 
-使用 C# / .NET 10 / WPF，托盘通过 Windows Forms NotifyIcon 实现，无浏览器运行时或第三方 NuGet 库。
+Windows 源码与检查位于 `windows/`，与 `macos/` 并列。使用 C# / .NET 10 / WPF，托盘通过 Windows Forms NotifyIcon 实现，无浏览器运行时或第三方 NuGet 库。
 
 推荐使用 Windows 11 x64 和 .NET 10 SDK。以下命令均在仓库根目录执行：
 

@@ -36,6 +36,21 @@ Mac 安装包尚未公证，Windows 安装包为未签名预览版，首次打�
 
 截图中的价格仅为示例。两端均只读取公开行情，无账户查询或交易功能。
 
+## 源码目录
+
+两个平台作为并列项目维护，构建入口分别放在各自目录内。
+
+```text
+FuturesBar/
+├── macos/      # Swift / AppKit / SwiftUI，含源码、测试和构建脚本
+├── windows/    # C# / .NET / WPF，含源码、检查和构建脚本
+├── docs/       # 平台文档、截图和发布记录
+├── README.md   # 双平台入口
+└── LICENSE
+```
+
+[Mac 源码](macos/) · [Windows 源码](windows/)
+
 ## 许可证
 
 [MIT License](LICENSE)
